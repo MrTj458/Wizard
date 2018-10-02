@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
+import { updateUser } from '../reducers/user'
 import {
 	Grid,
 	Divider,
@@ -33,12 +34,14 @@ class Profile extends React.Component {
 	}
 
 	onDrop = files => {
-		this.setState(state => ({
-			formValues: {
-				...state.formValues,
-				file: files[0],
+		this.setState(state => {
+			return {
+				formValues: {
+					...state.formValues,
+					file: files[0],
+				}
 			}
-		}))
+		})
 	}
 	
 	toggleEdit = () => {
@@ -47,16 +50,30 @@ class Profile extends React.Component {
 
 	handleSubmit = e => {
 		e.preventDefault()
+		const { formValues } = this.state
+		const { user, dispatch } = this.props
+		dispatch(updateUser(user.id, formValues))
+		this.setState(state => {
+			return {
+				editing: false,
+				formValues: {
+					...state.formValues,
+					file: '',
+				}
+			}
+		})
 	}
 
 	handleChange = e => {
 		const { name, value } = e.target
-		this.setState(state => ({
-			formValues: {
-				...state.formValues,
-				[name]: value,
+		this.setState(state => {
+			return {
+				formValues: {
+					...state.formValues,
+					[name]: value,
+				}
 			}
-		}))
+		})
 	}
 
 	editView = () => {

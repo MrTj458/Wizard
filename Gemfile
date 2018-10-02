@@ -10,8 +10,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'omniauth'
 gem 'devise_token_auth'
+gem 'aws-sdk'
+
 group :development, :test do
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :development do
