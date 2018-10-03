@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import { updateUser } from '../reducers/user'
+import Tags from './Tags'
 import {
 	Grid,
 	Divider,
@@ -141,6 +142,9 @@ class Profile extends React.Component {
 							>
 								{ editing ? 'Cancel' : 'Edit' }
 							</Button>
+						</Grid.Column>
+						<Grid.Column width={16}>
+							<Tags />
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
