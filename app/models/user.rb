@@ -9,4 +9,12 @@ class User < ActiveRecord::Base
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+
+  def self.like_users(id, tags)
+    return [] if tags.empty?
+    select('DISTINCT(users.id), users.name AS user_name, t.* AS tags, image')
+    .joins('INNER JOIN taggings tg ON tg.user_id = users.id
+            INNER JOIN tags t ON t.id = tg.tag_id')
+    .where('t.name in (?) AND users.id <> ?', tags, id)
+  end
 end

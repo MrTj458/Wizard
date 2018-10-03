@@ -26,4 +26,10 @@ class Api::UsersController < ApplicationController
       render json: { errors: user.errors }, status: 422
     end
   end
+
+  def like
+    tags = current_user.tags.map(&:name)
+    @users = User.like_users(current_user.id, tags)
+    render 'user.jbuilder'
+  end
 end

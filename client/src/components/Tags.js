@@ -7,6 +7,7 @@ import {
 import TagForm from './TagForm'
 import { connect } from 'react-redux'
 import { getTags, deleteTag } from '../reducers/tags'
+import LikeUsers from './LikeUsers'
 
 class Tags extends React.Component {
 	componentDidMount() {
@@ -43,6 +44,7 @@ class Tags extends React.Component {
 						</List>
 					</>
 				}
+				<LikeUsers />
 			</Container>
 		)
 	}
