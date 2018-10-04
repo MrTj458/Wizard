@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
 	Card,
-	Divider,
 	List,
 	Image,
 } from 'semantic-ui-react'
 import { getLikeUsers } from '../reducers/likeUsers'
+import TagList from './TagList'
 
 class LikeUsers extends React.Component {
 	componentDidMount() {
@@ -14,7 +14,7 @@ class LikeUsers extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if(prevProps.tags !== this.props.tags)
+		if (prevProps.tags !== this.props.tags)
 			this.reload()
 	}
 
@@ -25,39 +25,33 @@ class LikeUsers extends React.Component {
 	render() {
 		return (
 			<Card.Group itemsPerRow={4} stackable>
-				{ this.props.likeUsers.map( user => {
-						const { id, user_name, image, tags } = user
-						return (
-							<Card key={id}>
-								<Image
-									src={image}
-									alt="user avatar"
-								/>
-								<Card.Header>{user_name}</Card.Header>
-								<Card.Description>
-									<List divided horizontal>
-										{ tags.map( tag => 
-												<List.Item key={tag.id}>
-													#{tag.name}
-												</List.Item>
-											)
-										}
-									</List>
-								</Card.Description>
-							</Card>
-						)
-					})
+				{this.props.likeUsers.map(user => {
+					const { id, user_name, image, tags } = user
+					return (
+						<Card key={id}>
+							<Image
+								src={image}
+								alt="user avatar"
+							/>
+							<Card.Header>{user_name}</Card.Header>
+							<Card.Description>
+								<TagList tags={tags} />
+							</Card.Description>
+						</Card>
+					)
+				})
 				}
 			</Card.Group>
 		)
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
 		tags: state.tags,
-		likeUsers: state.likeUsers,
+		likeUsers: state.likeUsers
 	}
 }
 
 export default connect(mapStateToProps)(LikeUsers)
+
